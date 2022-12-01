@@ -1,72 +1,165 @@
-import React from "react";
-import styled from "styled-components";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "./Register.css";
 
-const Container = styled.div`
-  border-radius: 10px;
-  width: 100vw;
-  height: 100vh;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: coral;
-`;
+function Register() {
+  const [user, setUser] = useState({});
 
-const Title = styled.h1`
-text-align: center;`;
+  const navigate = useNavigate();
 
-const Box = styled.div`
-background-color: lightgray;
-width: 50%;
-height: 50%;
-padding: 20px;
-margin: 0 auto;
-border: 2px groove black;
-border-radius: 10px;
-`;
+  function handleFormSubmit(event) {
 
-const Register = () => {
+    // console.log(JSON.stringify(user));
+    // redirect to login.
+    navigate("/login");
+  }
+
   return (
-    <Container>
-          {/* registration form */}
-      <Box>
-          <Title>REGISTER WITH US HERE</Title>
-        <Form>
-          <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>First Name</Form.Label>
-            <Form.Control type="email" placeholder="First Name" />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>Surname</Form.Label>
-            <Form.Control type="email" placeholder="Surname" />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>Email address</Form.Label>
-            <Form.Control type="email" placeholder="Enter email" />
-            <Form.Text className="text-muted">
-              We'll never share your email with anyone else.
-            </Form.Text>
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>Username</Form.Label>
-            <Form.Control type="email" placeholder="Enter Username" />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Label>Password</Form.Label>
-            <Form.Control type="password" placeholder="Enter Password" />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicCheckbox">
-            <Form.Check type="checkbox" label="Click here to ignore our eventual email spam, we won't take it personally." />
-          </Form.Group>
-                  <Button variant="primary" type="submit" style={{ color: 'white', backgroundColor: 'green', borderColor: 'green' }}>
-            Submit
-          </Button>
-        </Form>
-      </Box>
-    </Container>
+    <div className="register-form">
+      <h3>Please Register.</h3>
+      <hr />
+      <form onSubmit={handleFormSubmit} action="">
+        <div className="mb-3">
+          <label htmlFor="" className="form-label">
+            Email
+          </label>
+          <input
+            onInput={(e) => {
+              user.email = e.target.value;
+              setUser(user);
+            }}
+            name="email"
+            className="form-control"
+            type="email"
+          />
+        </div>
+        <div className="row">
+          <div className="mb-3 col-6">
+            <label htmlFor="" className="form-label">
+              First Name
+            </label>
+            <input
+              onInput={(e) => {
+                if (!user.name) user.name = {};
+                user.name.firstname = e.target.value;
+                setUser(user);
+              }}
+              className="form-control"
+              type="text"
+            />
+          </div>
+          <div className="mb-3 col-6">
+            <label htmlFor="" className="form-label">
+              Last Name
+            </label>
+            <input
+              onInput={(e) => {
+                if (!user.name) user.name = {};
+                user.name.lastname = e.target.value;
+                setUser(user);
+              }}
+              className="form-control"
+              type="text"
+            />
+          </div>
+        </div>
+
+        <div className="mb-3">
+          <label htmlFor="" className="form-label">
+            Username
+          </label>
+          <input
+            onInput={(e) => {
+              user.username = e.target.value;
+              setUser(user);
+            }}
+            className="form-control"
+            type="text"
+          />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="" className="form-label">
+            Password
+          </label>
+          <input
+            onInput={(e) => {
+              user.password = e.target.value;
+              setUser(user);
+            }}
+            className="form-control"
+            type="password"
+          />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="" className="form-label">
+            Phone
+          </label>
+          <input
+            onInput={(e) => {
+              user.phone = e.target.value;
+              setUser(user);
+            }}
+            className="form-control"
+            type="tel"
+          />
+        </div>
+        <h4>Address</h4>
+        <div className="row">
+          <div className="mb-3 col-6">
+            <input
+              onInput={(e) => {
+                if (!user.address) user.address = {};
+                user.address.city = e.target.value;
+                setUser(user);
+              }}
+              placeholder="City"
+              className="form-control"
+              type="text"
+            />
+          </div>
+          <div className="mb-3 col-6">
+            <input
+              onInput={(e) => {
+                if (!user.address) user.address = {};
+                user.address.street = e.target.value;
+                setUser(user);
+              }}
+              placeholder="Street"
+              className="form-control"
+              type="text"
+            />
+          </div>
+          <div className="mb-3 col-6">
+            <input
+              onInput={(e) => {
+                if (!user.address) user.address = {};
+                user.address.number = e.target.value;
+                setUser(user);
+              }}
+              placeholder="Flat No"
+              className="form-control"
+              type="number"
+            />
+          </div>
+          <div className="mb-3 col-6">
+            <input
+              onInput={(e) => {
+                if (!user.address) user.address = {};
+                user.address.zipcode = e.target.value;
+                setUser(user);
+              }}
+              placeholder="Zip Code"
+              className="form-control"
+              type="text"
+            />
+          </div>
+        </div>
+        <button type="submit" className="float-end btn btn-success">
+          Register
+        </button>
+      </form>
+    </div>
   );
-};
+}
 
 export default Register;

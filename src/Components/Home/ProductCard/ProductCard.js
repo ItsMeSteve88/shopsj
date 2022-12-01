@@ -1,128 +1,73 @@
-import React from "react";
-import { useState, useEffect } from "react";
 import "./ProductCard.css";
-import styled from "styled-components";
 
-const Container = styled.div`
-  border-radius: 10px;
-  width: 100%;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-`;
+function ProductCard(values) {
+  function AddtoCart() {
+    // cartItems is the key.
+    const products = localStorage.getItem("cartItems");
 
-const Box = styled.div`
-  width: 20%;
-  margin: 20px;
-  padding: 30px;
-  box-shadow: 2px 2px 10px 0px rgba(0, 0, 0, 0.75);
-  
+    // if there are no cartitems
+    if (!products) {
+      let cartItems = [];
+      cartItems.push(values.item);
+      localStorage.setItem("cartItems", JSON.stringify(cartItems));
+    } else {
+      // there are some existing data.
+      let cartItems = JSON.parse(products);
+      cartItems.push(values.item);
+      localStorage.setItem("cartItems", JSON.stringify(cartItems));
+    }
+    values.notify();
   }
-`;
 
-const TitleBox = styled.div``;
+  const key = values.item.id + "svg";
 
-const Title = styled.h2`
-  color: black;
-  text-align: center;
-  margin-bottom: 20px;
-`;
-
-const Description = styled.p`
-  color: black;
-  font-size: 0.9rem;
-`;
-
-const Image = styled.img`
-  width: 100%;
-  height: 200px;
-  object-fit: contain;
-  margin: 30px 0px 30px 0px;
-`;
-
-const PriceBox = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 20px;
-`;
-
-const Price = styled.p`
-  font-size: 2rem;
-  font-weight: 600;
-`;
-
-const Button = styled.button`
-  width: 40%;
-  height: 50px;
-  background-color: green;
-  font-size: large;
-  color: white;
-  border: 1px solid white;
-  border-radius: 5px;
-  padding: 5px;
-  margin: 5px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: white;
-    color: green;
-    transform: scale(1.1);
-    transition: 0.5s ease ;
-    border: 1px solid green;
-    border-radius: 5px;
+  let stars = [];
+  for (let i = 0; i < Number(values.item.rating.rate); i++) {
+    stars[i] = 1;
   }
-`;
-
-// const Highlight = styled.div`
-//   width: 100%;
-//   height: 100%;
-//   position: absolute;
-//   top: 0;
-//   left: 0;
-//   background-color: gray;
-//   z-index: 3;
-//   opacity: 0.1;
-
-//   &:hover {
-//     background-color: red;
-//   }
-// `;
-
-const ProductCard = () => {
-  const [products, setProducts] = useState([]);
-
-  useEffect(() => {
-    fakestore();
-  }, []);
-
-  const fakestore = async () => {
-    const response = await fetch("https://fakestoreapi.com/products");
-    const jsonData = await response.json();
-    setProducts(jsonData);
-  };
   return (
-    <Container>
-      {products.map((product) => {
-        return (
-          <>
-            <Box>
-              <TitleBox>
-                <Title>{product.title}</Title>
-                <Description>{product.description}</Description>
-              </TitleBox>
-              <Image src={product.image} alt={product.image}></Image>
-              <PriceBox>
-                <Price>£{product.price}</Price>
-                <Button className="btn">Add to Cart</Button>
-              </PriceBox>
-            </Box>
-          </>
-        );
-      })}
-    </Container>
+    <div className="card">
+      <h5 className="card-title">{values.item.title}</h5>
+      <img src={values.item.image} alt="..."></img>
+      <hr />
+      <div className="card-body">
+        <p className="card-text">{values.item.category}</p>
+        <p className="stars">
+          {stars.map((x, i) => (
+            <svg
+              key={key + i}
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              className="bi bi-star-fill"
+              viewBox="0 0 16 16">
+              <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+            </svg>
+          ))}
+          &nbsp;&nbsp;
+          <span>{values.item.rating.count}</span>
+        </p>
+        <p className="card-text">{values.item.description}</p>
+        <a href="#" className="btn btn-success flex-box" onClick={AddtoCart}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            className="bi bi-bag-plus"
+            viewBox="0 0 16 16">
+            <path
+              fillRule="evenodd"
+              d="M8 7.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V12a.5.5 0 0 1-1 0v-1.5H6a.5.5 0 0 1 0-1h1.5V8a.5.5 0 0 1 .5-.5z"
+            />
+            <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z" />
+          </svg>
+          &nbsp;Add To Cart
+        </a>
+      </div>
+    </div>
   );
-};
+}
 
 export default ProductCard;

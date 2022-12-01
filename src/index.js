@@ -1,23 +1,31 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import "./index.css";
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap';
 
-import reportWebVitals from "./reportWebVitals";
-import Home from "./Pages/Home/Home";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Signin from "./Pages/Signin/Signin";
-import Register from "./Pages/Register/Register";
+import reportWebVitals from './reportWebVitals';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Home from './Pages/Home/Home';
+import Register from './Pages/Register/Register';
+import Login from './Pages/Login/Login';
+import Cart from './Pages/Cart/Cart';
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
+
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
+  // <React.StrictMode>
   <BrowserRouter>
     <Routes>
-      <Route path="/" element={<Home/>}></Route>
-      <Route path='login' element={<Signin />}></Route>
-      <Route path='register' element={<Register/>}></Route>
+      <Route path='/' element={<Home />}></Route>
+      <Route path='register' element={<Register />}></Route>
+      <Route path='login' element={<Login />}></Route>
+      <Route path='cart' element={<Cart />}></Route>
     </Routes>
   </BrowserRouter>
-      
+  // <Home />
+  // <Register />
+  // </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
