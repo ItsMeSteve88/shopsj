@@ -1,6 +1,7 @@
 img{
     height: 270px;
     width: 260px;
+    margin: auto;
 }
 
 .card-title{
@@ -14,17 +15,29 @@ img{
     margin: 16px;
 }
 
+
+
 .flex-box{
     margin: auto;
     display: flex;
     width: fit-content;
     justify-content: center;
     align-items: center;
+    background-color: coral;
+    border-color: white;
+}
+
+.flex-box:hover{
+    background-color: white;
+    border-color: coral;
+    color: coral;
 }
 
 svg{
     fill: gold;
 }
+
+
 
 .stars{
     display: flex;
