@@ -2,16 +2,16 @@ import "./ProductCard.css";
 
 function ProductCard(values) {
   function AddtoCart() {
-    // cartItems is the key.
+    // cartItems is the key. if it is the first item, then it will be an empty array, or undefined
     const products = localStorage.getItem("cartItems");
 
-    // if there are no cartitems
+    // if there are no cartitems, create a new array
     if (!products) {
       let cartItems = [];
       cartItems.push(values.item);
       localStorage.setItem("cartItems", JSON.stringify(cartItems));
     } else {
-      // there are some existing data.
+    // if there are some existing items.
       let cartItems = JSON.parse(products);
       cartItems.push(values.item);
       localStorage.setItem("cartItems", JSON.stringify(cartItems));

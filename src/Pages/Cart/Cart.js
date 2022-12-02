@@ -54,7 +54,7 @@ function Cart() {
     <div className="cart-container">
       <Header />
       {/* 2. Print updated total price */}
-      <h4 className="totalPrice">Total Price: {totalPrice}</h4>
+      <h4 className="totalPrice">Total Price:£{totalPrice}</h4>
       <div>
         {cartItems.map((item, index) => (
           <CartItem
